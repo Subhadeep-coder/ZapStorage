@@ -57,12 +57,12 @@ const SignUp = () => {
                             <Form.Label>Confirm Password</Form.Label>
                             <Form.Control type='password' ref={cpasswordRef} required />
                         </Form.Group>
-                        <Button disabled={loading} type='submit' className='w-100'>Sign Up</Button>
+                        <Button variant='dark' disabled={loading} type='submit' className='w-100'>Sign Up</Button>
                     </Form>
                 </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">
-                Already have an account? <Link to={`/login`}>Login</Link>
+                Already have an account? <Link className='text-dark' to={`/login`}>Login</Link>
             </div>
         </CenteredContainer>
     )

@@ -44,15 +44,15 @@ const Login = () => {
                             <Form.Label>Password</Form.Label>
                             <Form.Control type='password' ref={passwordRef} required />
                         </Form.Group>
-                        <Button disabled={loading} type='submit' className='w-100'>Login</Button>
+                        <Button variant='dark' disabled={loading} type='submit' className='w-100'>Login</Button>
                     </Form>
                     <div className='w-100 text-center mt-3'>
-                        <Link to={`/forgot-password`} >Forgot Password?</Link>
+                        <Link className='text-dark' to={`/forgot-password`} >Forgot Password?</Link>
                     </div>
                 </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">
-                Don't have am account? <Link to={`/signup`}>SignUp</Link>
+                Don't have am account? <Link className='text-dark' to={`/signup`}>SignUp</Link>
             </div>
         </CenteredContainer>
     )

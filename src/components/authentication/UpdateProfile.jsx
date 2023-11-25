@@ -60,13 +60,13 @@ const UpdateProfile = () => {
                             <Form.Label>Confirm Password</Form.Label>
                             <Form.Control type='password' ref={cpasswordRef} placeholder='Leave blank to keep the same' />
                         </Form.Group>
-                        <Button disabled={loading} type='submit' className='w-100'>Update</Button>
+                        <Button variant='dark' disabled={loading} type='submit' className='w-100'>Update</Button>
                     </Form>
                 </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">
-                <Button as={Link} to={`/`} className='w-100'>Back to Dashboard</Button>
-                <Link to={`/user`}>Cancel</Link>
+                <Button variant='dark' as={Link} to={`/`} className='w-100 mb-2'>Back to Dashboard</Button>
+                <Link className='text-dark' to={`/user`}>Cancel</Link>
             </div>
         </CenteredContainer>
     )

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Alert, Button, Card } from 'react-bootstrap'
 import { useAuth } from '../../contexts/AuthContext';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import CenteredContainer from './CenteredContainer';
 
 const Profile = () => {
@@ -33,11 +33,16 @@ const Profile = () => {
                     <h2 className='text-center mb-4'>Profile</h2>
                     {error && <Alert variant='danger'>{error}</Alert>}
                     <strong>Email:</strong>{currentUser?.email}
-                    <Link className='btn btn-primary w-100 mt-3' to={`/update-profile`}>Update Profile</Link>
+                    <Button variant='dark' className='btn btn-primary w-100 mt-3' onClick={() => navigate(`/update-profile`)} >Update Profile</Button>
                 </Card.Body>
             </Card>
-            <div className="w-100 text-center mt-2">
-                <Button variant='link' onClick={handleLogOut}>Logout</Button>
+            <div className="flex flex-row w-100">
+                <div className="w-1/2 text-center mt-2">
+                    <Button variant="dark" onClick={() => navigate('/')}>Back to Dashboard</Button>
+                </div>
+                <div className="w-1/2 text-center mt-2">
+                    <Button variant='link' className='text-dark' onClick={handleLogOut}>Logout</Button>
+                </div>
             </div>
         </CenteredContainer>
     )

@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BsFileEarmarkPlus } from 'react-icons/bs';
 import { database, storage } from '../../../firebase/firebase';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { useAuth } from '../../../contexts/AuthContext';
 import { ROOT_FOLDER } from '../../../hooks/useFolder';
 import { addDoc } from 'firebase/firestore';
-import ProgressBar from '../ProgressBar';
 
-const AddFile = ({ currentFolder }) => {
+const AddFile = ({ currentFolder, setPercent }) => {
 
     const { currentUser } = useAuth();
-    const [percent, setPercent] = useState(0);
 
     const handleUpload = (e) => {
         const file = e.target.files[0];
@@ -55,9 +53,9 @@ const AddFile = ({ currentFolder }) => {
 
     return (
         <>
-            <ProgressBar percent={percent} />
-            <label className='btn btn-outline-success btn-sm m-0 mx-2'>
-                <BsFileEarmarkPlus />
+            <label className='btn btn-outline-success btn-sm m-0 mx-2' style={{ height: '40px' }}>
+                <BsFileEarmarkPlus style={{ margin: 'auto',fontSize:'24px' }} />
+                <span className='mx-1' style={{ margin: 'auto',fontSize:'18px' }}>Add File</span>
                 <input
                     type="file"
                     onChange={handleUpload}

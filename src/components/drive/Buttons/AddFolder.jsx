@@ -45,7 +45,8 @@ const AddFolder = ({ currentFolder }) => {
     return (
         <>
             <Button variant='outline-success' size='sm' onClick={openModal}>
-                <BsFolderPlus />
+                <BsFolderPlus style={{ margin: 'auto', fontSize: '24px' }} />
+                <span className='mx-1' style={{ margin: 'auto', fontSize: '18px' }}>Add File</span>
             </Button>
             <Modal show={open} onHide={closeModal}>
                 <Form onSubmit={handleSubmit}>

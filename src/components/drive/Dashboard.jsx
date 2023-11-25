@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from './Navbar'
 import { useAuth } from '../../contexts/AuthContext';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -9,6 +9,9 @@ import Folder from './Folder';
 import FolderBreadCrums from './FolderBreadCrums';
 import AddFile from './Buttons/AddFile';
 import File from './File';
+import ProgressBar from './ProgressBar';
+import Toast from './Toast';
+import { toast } from 'react-toastify';
 
 const Dashboard = () => {
 
@@ -19,22 +22,32 @@ const Dashboard = () => {
     const { folder, childFolders, childFiles } = useFolder(folderId, state?.folder);
     console.log('Folders:', childFolders, 'Files:', childFiles);
 
+
+    const [percent, setPercent] = useState(0);
+
     useEffect(() => {
         if (!currentUser) navigate('/login');
     }, [currentUser, navigate])
 
+    // const handleToast = () => {
+    //     percent === 100 && toast('File uploaded successfully');
+    // }
+
     return (
         <>
             <Navbar />
-            <Container fluid>
-                <div className="d-flex align-items-center">
+            <Container fluid className='w-100 my-2'>
+                {percent !== 0 && percent !== 100 && <ProgressBar percent={percent} />}
+                <div className="d-flex align-items-center my-4">
+                    {percent === 100 && <Toast />}
                     <FolderBreadCrums currentFolder={folder} />
-                    <AddFile currentFolder={folder} />
+                    <AddFile currentFolder={folder} setPercent={setPercent} />
                     <AddFolder currentFolder={folder} />
                 </div>
                 {
                     childFolders.length > 0 && (
                         <>
+                            <h2>Folders</h2>
                             <div className="d-flex flex-wrap">
                                 {
                                     childFolders.map(childFolder =>
@@ -53,6 +66,7 @@ const Dashboard = () => {
                 {
                     childFiles.length > 0 && (
                         <>
+                            <h2>Files</h2>
                             <div className="d-flex flex-wrap">
                                 {
                                     childFiles.map(childFile => {

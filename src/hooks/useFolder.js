@@ -115,7 +115,7 @@ export const useFolder = (folderId = null, folder = null) => {
                 database.files,
                 where('folderId', '==', folderId),
                 where('userId', '==', currentUser.uid),
-                // orderBy('createdAt')
+                orderBy('createdAt')
             ),
             (snapshot) => {
                 dispatch({
