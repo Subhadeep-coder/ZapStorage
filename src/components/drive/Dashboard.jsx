@@ -33,7 +33,7 @@ const Dashboard = () => {
             <Container fluid className='w-100 my-2'>
                 {percent !== 0 && percent !== 100 && <ProgressBar percent={percent} />}
                 <div className="d-flex align-items-center my-4">
-                    {percent === 100 && <Toast />}
+                    <Toast />
                     <FolderBreadCrums currentFolder={folder} />
                     <AddFile currentFolder={folder} setPercent={setPercent} />
                     <AddFolder currentFolder={folder} />

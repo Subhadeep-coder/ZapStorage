@@ -10,6 +10,7 @@ import Form from 'react-bootstrap/Form';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { firestore } from '../../firebase/firebase';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 const File = ({ file }) => {
@@ -32,7 +33,7 @@ const File = ({ file }) => {
         setOpenShareModal(false);
     }
 
-    const handleOpenDeleteModal = () => {
+    const handleOpenDeleteModal = (e) => {
         setOpenDeleteModal(true);
     }
 
@@ -63,6 +64,16 @@ const File = ({ file }) => {
 
     const handleDeleteFile = async () => {
         await deleteDoc(fileRef);
+        toast.warn('File deleted successfully', {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
     }
 
     const handleRenameFile = async (e) => {
@@ -74,6 +85,16 @@ const File = ({ file }) => {
             });
         setRename('');
         setOpenRenameModal(false);
+        toast.success('File name updated successfully', {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
     }
 
     const handleCopyUrl = () => {
@@ -88,16 +109,18 @@ const File = ({ file }) => {
 
     // For closing modal after clicking outside
     const menuRef = useRef();
-    useEffect(() => {
-        const closeDropDown = (e) => {
-            if (!menuRef.current.contains(e.target)) {
-                setOpenList(false);
-            }
-        }
+    // useEffect(() => {
+    //     const closeDropDown = (e) => {
+    //         if (!menuRef.current.contains(e.target)) {
+    //             setOpenList(false);
+    //         }
+    //     }
 
-        document.body.addEventListener('mousedown', closeDropDown);
-        return () => document.body.removeEventListener('click', closeDropDown);
-    }, [])
+    //     document.addEventListener('mousedown', closeDropDown);
+    //     return () => {
+    //         document.removeEventListener('mousedown', closeDropDown)
+    //     };
+    // });
 
 
     return (
@@ -121,7 +144,7 @@ const File = ({ file }) => {
                         <>
                             <div className="position-relative">
                                 <ListGroup variant='flush' className='position-absolute' style={{ bottom: '10px', right: '0px', border: '1px solid black', borderRadius: '10px' }}>
-                                    <ListGroup.Item className='d-flex align-items-center px-2' style={{ cursor: 'pointer' }} onClick={() => { navigator(`${file.url}`); setOpenList(false); }}>Download<MdOutlineFileDownload className='px-1 mx-1 fs-3' /></ListGroup.Item>
+                                    <ListGroup.Item className='d-flex align-items-center px-2' style={{ cursor: 'pointer' }} onClick={() => navigator(`${file.url}`)}>Download<MdOutlineFileDownload className='px-1 mx-1 fs-3' /></ListGroup.Item>
                                     <ListGroup.Item className='d-flex align-items-center px-2' style={{ cursor: 'pointer' }} onClick={() => { handleOpenShareModal(); setOpenList(false); }}>Share<FaRegShareFromSquare className='px-1 mx-1 fs-4' /></ListGroup.Item>
                                     <ListGroup.Item className='d-flex align-items-center px-2' style={{ cursor: 'pointer' }} onClick={() => { handleCopyUrl(); setOpenList(false); }}>Copy Url<FaRegCopy className='px-1 mx-1 fs-4' /></ListGroup.Item>
                                     <ListGroup.Item className='d-flex align-items-center px-2' style={{ cursor: 'pointer' }} onClick={() => { handleOpenRenameModal(); setOpenList(false); }}>Rename<MdDriveFileRenameOutline className='px-1 mx-1 fs-4' /></ListGroup.Item>

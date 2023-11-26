@@ -5,6 +5,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { useAuth } from '../../../contexts/AuthContext';
 import { ROOT_FOLDER } from '../../../hooks/useFolder';
 import { addDoc } from 'firebase/firestore';
+import { toast } from 'react-toastify';
 
 const AddFile = ({ currentFolder, setPercent }) => {
 
@@ -32,11 +33,22 @@ const AddFile = ({ currentFolder, setPercent }) => {
                 // update progress
                 setPercent(percent);
             },
-            (err) => console.log(err),
+            (err) => {
+                console.log(err);
+                toast.error('File uploaded successfully', {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            },
             () => {
                 // download url
                 getDownloadURL(uploadTask.snapshot.ref).then(async (url) => {
-                    console.log(url);
                     await addDoc(database.files,
                         {
                             url: url,
@@ -46,6 +58,16 @@ const AddFile = ({ currentFolder, setPercent }) => {
                             sharedEmails: [],
                             userId: currentUser.uid
                         })
+                    toast.success('File uploaded successfully', {
+                        position: "top-center",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
+                    });
                 });
             }
         );

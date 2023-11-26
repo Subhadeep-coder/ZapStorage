@@ -5,8 +5,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Toast = () => {
 
-    toast('File uploaded successfully');
-
     return (
         <ToastContainer
             position="top-center"
