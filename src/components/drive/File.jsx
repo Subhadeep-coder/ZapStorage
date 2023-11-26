@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { BsFileEarmark } from 'react-icons/bs';
 import { CgMoreVerticalO } from "react-icons/cg";
 import { MdOutlineFileDownload, MdDeleteForever, MdDriveFileRenameOutline } from "react-icons/md";
@@ -86,6 +86,19 @@ const File = ({ file }) => {
         }
     }
 
+    // For closing modal after clicking outside
+    const menuRef = useRef();
+    useEffect(() => {
+        const closeDropDown = (e) => {
+            if (!menuRef.current.contains(e.target)) {
+                setOpenList(false);
+            }
+        }
+
+        document.body.addEventListener('mousedown', closeDropDown);
+        return () => document.body.removeEventListener('click', closeDropDown);
+    }, [])
+
 
     return (
         <>
@@ -108,11 +121,11 @@ const File = ({ file }) => {
                         <>
                             <div className="position-relative">
                                 <ListGroup variant='flush' className='position-absolute' style={{ bottom: '10px', right: '0px', border: '1px solid black', borderRadius: '10px' }}>
-                                    <ListGroup.Item className='d-flex align-items-center px-2' style={{ cursor: 'pointer' }} onClick={() => navigator(`${file.url}`)}>Download<MdOutlineFileDownload className='px-1 mx-1 fs-3' /></ListGroup.Item>
-                                    <ListGroup.Item className='d-flex align-items-center px-2' style={{ cursor: 'pointer' }} onClick={handleOpenShareModal}>Share<FaRegShareFromSquare className='px-1 mx-1 fs-4' /></ListGroup.Item>
-                                    <ListGroup.Item className='d-flex align-items-center px-2' style={{ cursor: 'pointer' }} onClick={handleCopyUrl}>Copy Url<FaRegCopy className='px-1 mx-1 fs-4' /></ListGroup.Item>
-                                    <ListGroup.Item className='d-flex align-items-center px-2' style={{ cursor: 'pointer' }} onClick={handleOpenRenameModal}>Rename<MdDriveFileRenameOutline className='px-1 mx-1 fs-4' /></ListGroup.Item>
-                                    <ListGroup.Item className='d-flex align-items-center px-2' style={{ cursor: 'pointer' }} onClick={handleOpenDeleteModal}>Delete<MdDeleteForever className='px-1 mx-1 fs-4' /></ListGroup.Item>
+                                    <ListGroup.Item className='d-flex align-items-center px-2' style={{ cursor: 'pointer' }} onClick={() => { navigator(`${file.url}`); setOpenList(false); }}>Download<MdOutlineFileDownload className='px-1 mx-1 fs-3' /></ListGroup.Item>
+                                    <ListGroup.Item className='d-flex align-items-center px-2' style={{ cursor: 'pointer' }} onClick={() => { handleOpenShareModal(); setOpenList(false); }}>Share<FaRegShareFromSquare className='px-1 mx-1 fs-4' /></ListGroup.Item>
+                                    <ListGroup.Item className='d-flex align-items-center px-2' style={{ cursor: 'pointer' }} onClick={() => { handleCopyUrl(); setOpenList(false); }}>Copy Url<FaRegCopy className='px-1 mx-1 fs-4' /></ListGroup.Item>
+                                    <ListGroup.Item className='d-flex align-items-center px-2' style={{ cursor: 'pointer' }} onClick={() => { handleOpenRenameModal(); setOpenList(false); }}>Rename<MdDriveFileRenameOutline className='px-1 mx-1 fs-4' /></ListGroup.Item>
+                                    <ListGroup.Item className='d-flex align-items-center px-2' style={{ cursor: 'pointer' }} onClick={() => { handleOpenDeleteModal(); setOpenList(false); }}>Delete<MdDeleteForever className='px-1 mx-1 fs-4' /></ListGroup.Item>
                                 </ListGroup>
                             </div>
                         </>
@@ -120,6 +133,7 @@ const File = ({ file }) => {
                 }
                 <div
                     onClick={() => setOpenList(!openList)}
+                    ref={menuRef}
                 >
                     <CgMoreVerticalO />
                 </div>
@@ -164,7 +178,7 @@ const File = ({ file }) => {
                     <p>Are you sure to delete this file?</p>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant='secondary' onClick={handleCloseShareModal}>Close</Button>
+                    <Button variant='secondary' onClick={handleCloseDeleteModal}>Close</Button>
                     <Button variant='success' type='submit' onClick={() => { handleDeleteFile(); handleCloseDeleteModal(); }}>Delete file</Button>
                 </Modal.Footer>
             </Modal>
