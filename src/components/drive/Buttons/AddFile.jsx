@@ -54,7 +54,7 @@ const AddFile = ({ currentFolder, setPercent }) => {
 
     return (
         <>
-            <label className='btn btn-outline-success btn-sm m-0 mx-2' style={{ height: '40px' }}>
+            <label className='btn btn-outline-success btn-sm m-0 mx-2'>
                 <BsFileEarmarkPlus style={{ margin: 'auto', fontSize: '24px' }} />
                 <span className='mx-1' style={{ margin: 'auto', fontSize: '18px' }}>Add File</span>
                 <input
