@@ -40,11 +40,11 @@ const Login = () => {
                             <Form.Label>Email</Form.Label>
                             <Form.Control type='email' ref={emailRef} required />
                         </Form.Group>
-                        <Form.Group id='password'>
+                        <Form.Group id='password' className='mt-3'>
                             <Form.Label>Password</Form.Label>
                             <Form.Control type='password' ref={passwordRef} required />
                         </Form.Group>
-                        <Button variant='dark' disabled={loading} type='submit' className='w-100'>Login</Button>
+                        <Button variant='dark' disabled={loading} type='submit' className='w-100 mt-4'>Login</Button>
                     </Form>
                     <div className='w-100 text-center mt-3'>
                         <Link className='text-dark' to={`/forgot-password`} >Forgot Password?</Link>

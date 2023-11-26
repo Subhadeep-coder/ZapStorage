@@ -87,7 +87,7 @@ export const useFolder = (folderId = null, folder = null) => {
 
     useEffect(() => {
 
-        const cleanup = onSnapshot(
+        const cleanup = currentUser && onSnapshot(
             query(
                 database.folders,
                 where('parentId', '==', folderId),
@@ -110,7 +110,7 @@ export const useFolder = (folderId = null, folder = null) => {
 
     useEffect(() => {
 
-        const cleanup = onSnapshot(
+        const cleanup = currentUser && onSnapshot(
             query(
                 database.files,
                 where('folderId', '==', folderId),
@@ -130,6 +130,7 @@ export const useFolder = (folderId = null, folder = null) => {
 
         return () => cleanup()
     }, [folderId, currentUser])
+
 
     return state;
 }

@@ -49,15 +49,15 @@ const SignUp = () => {
                             <Form.Label>Email</Form.Label>
                             <Form.Control type='email' ref={emailRef} required />
                         </Form.Group>
-                        <Form.Group id='password'>
+                        <Form.Group id='password' className='mt-3'>
                             <Form.Label>Password</Form.Label>
                             <Form.Control type='password' ref={passwordRef} required />
                         </Form.Group>
-                        <Form.Group id='passowrd-confirm'>
+                        <Form.Group id='passowrd-confirm' className='mt-3'>
                             <Form.Label>Confirm Password</Form.Label>
                             <Form.Control type='password' ref={cpasswordRef} required />
                         </Form.Group>
-                        <Button variant='dark' disabled={loading} type='submit' className='w-100'>Sign Up</Button>
+                        <Button variant='dark' disabled={loading} type='submit' className='w-100 mt-4'>Sign Up</Button>
                     </Form>
                 </Card.Body>
             </Card>

@@ -48,7 +48,7 @@ const AddFolder = ({ currentFolder }) => {
                 <BsFolderPlus style={{ margin: 'auto', fontSize: '24px' }} />
                 <span className='mx-1' style={{ margin: 'auto', fontSize: '18px' }}>Add File</span>
             </Button>
-            <Modal show={open} onHide={closeModal}>
+            <Modal show={open} onHide={closeModal} centered>
                 <Form onSubmit={handleSubmit}>
                     <Modal.Body>
                         <Form.Group>
@@ -64,7 +64,7 @@ const AddFolder = ({ currentFolder }) => {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant='secondary' onClick={closeModal}>Close</Button>
-                        <Button variant='success' type='submit'>Add Folder</Button>
+                        <Button variant='dark' type='submit'>Add Folder</Button>
                     </Modal.Footer>
                 </Form>
             </Modal>

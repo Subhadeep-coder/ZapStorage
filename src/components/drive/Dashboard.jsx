@@ -11,7 +11,6 @@ import AddFile from './Buttons/AddFile';
 import File from './File';
 import ProgressBar from './ProgressBar';
 import Toast from './Toast';
-import { toast } from 'react-toastify';
 
 const Dashboard = () => {
 
@@ -20,7 +19,6 @@ const Dashboard = () => {
     const { folderId } = useParams();
     const { state = {} } = useLocation();
     const { folder, childFolders, childFiles } = useFolder(folderId, state?.folder);
-    console.log('Folders:', childFolders, 'Files:', childFiles);
 
 
     const [percent, setPercent] = useState(0);
@@ -28,10 +26,6 @@ const Dashboard = () => {
     useEffect(() => {
         if (!currentUser) navigate('/login');
     }, [currentUser, navigate])
-
-    // const handleToast = () => {
-    //     percent === 100 && toast('File uploaded successfully');
-    // }
 
     return (
         <>
